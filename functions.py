@@ -2,15 +2,12 @@ import requests
 from bs4 import BeautifulSoup
 
 class Client:
-	def __init__(self, base_url, auth, cert, cafile=None):
+	def __init__(self, base_url, user, passw, cert=None, cafile=None):
 		self.base_url = base_url
-
 		self.session = requests.Session()
-		self.session.auth = auth
+		self.session.auth = (user, passw)
 		self.session.cert = cert
-
-		if cafile != None:
-			self.session.verify = cafile
+		self.session.verify = cafile
 
 	def exists(self, url):
 		response = self.session.request('PROPFIND', self.base_url + url)
