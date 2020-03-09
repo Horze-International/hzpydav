@@ -94,6 +94,11 @@ class Client:
 
 		self.session.put(self.base_url + url, data=data, headers={'Content-Type': 'application/octet-stream'})
 
+	def download(self, url, out):
+		response = self.session.get(self.base_url + '/' + url)
+
+		out.write(response.content)
+
 	# Traverse folder recursively, returning a list of absolute filenames
 	def traverse(self, folder):
 		entries = self.propfind(folder)['entries']
